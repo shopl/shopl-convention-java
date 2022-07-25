@@ -1,0 +1,8 @@
+site_name: Shopl Java 컨벤션
+theme: readthedocs
+nav:
+  - 일러두기: index.md
+  - 공통: common.md
+  - 메서드: method.md
+  - DTO: dto.md
+  - Service: service.md
