@@ -12,3 +12,11 @@
 
 * `mkdocs serve` - 로컬에서 개발 시 실시간 변경사항을 반영합니다.
 * `mkdocs build` - 정적 웹사이트를 제작하기 위해 사용합니다. `/site` 디렉토리에 결과물이 생성됩니다.
+
+```sh
+$ git checkout gh-pages
+$ cp site/* . 
+$ git add --all 
+$ git commit -m "커밋 메시지"
+$ git push -u origin gh-pages
+```
