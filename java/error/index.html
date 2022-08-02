@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>에러 처리 - Shopl 컨벤션</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\uc5d0\ub7ec \ucc98\ub9ac";
+        var mkdocs_page_input_path = "java/error.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Shopl 컨벤션
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">일러두기</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Java</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../common/">공통</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../habit/">추천습관</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../method/">메서드</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../controller/">Controller</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../service/">Service</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dto/">DTO</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">에러 처리</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">에러 유형 정의</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#http">Http 반환 에러 코드의 사용</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../test/">테스트 코드</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Shopl 컨벤션</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Java &raquo;</li>
+      <li>에러 처리</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>V2022.07.26.1</p>
+<h1 id="error">Error</h1>
+<h2 id="_1">에러 유형 정의</h2>
+<ul>
+<li>서버에서 발생시키는 특정 에러는 고유의 코드값을 갖도록 정의한다. </li>
+<li>코드의 정의 <code>com.planetory.io.error.constant</code> 패지키 내 <code>interface</code> 파일에 상수로 작성한다.</li>
+<li>기능 혹은 리소스에 따라 알파벹 대문자와 숫자로 구성된 3자리의 대분류 항목 코드를 사용한다.</li>
+<li>1자리 숫자로 중분류 항목 코드를 사용한다.</li>
+<li>2자리 숫자로 상세 항목 코드를 사용한다. </li>
+<li>대분류, 중분류, 상세 항목 코드를 조합해 에러코드를 정의한다.</li>
+</ul>
+<pre><code class="language-java">...
+/* AUDIT_TYPE : A07 */
+String AUDIT_CODE_BASIC_DAYOFF_ADD = &quot;A07101&quot;; // 휴무 추가
+String AUDIT_CODE_BASIC_DAYOFF_UPDATE = &quot;A07102&quot;; // 휴무 수정
+String AUDIT_CODE_BASIC_DAYOFF_UPDATE_IDX = &quot;A07103&quot;; // 휴무 수정
+String AUDIT_CODE_BASIC_DAYOFF_DISABLE = &quot;A07104&quot;; // 휴무 추가
+
+String AUDIT_CODE_BASIC_USER_MOD_TYPE = &quot;A08101&quot;; // 구성원 추가 권한
+
+/* AUDIT_TYPE : B01 */
+String AUDIT_CODE_USER_POSITION_ADD = &quot;B01101&quot;; // 직급 추가 &gt; /admin/user/mgmt/position/add
+...
+</code></pre>
+<h2 id="http">Http 반환 에러 코드의 사용</h2>
+<ul>
+<li>상수로 정의한 샤플 에러코드는 <code>enum</code> 파일로 구체화 및 그룹화하여 사용한다.</li>
+<li><code>com.planetory.io.error.constant.StatusCodeConstant</code> Enum 파일에서 Http 에러 상태 정보를 관리한다.</li>
+<li><code>com.planetory.io.exception.ErrorCode</code> 인터페이스를 구현하여 다음 정보를 작성한다. <ul>
+<li>http status 코드값 </li>
+<li>샤플 에러 코드 </li>
+<li>샤플 에러 메시지</li>
+</ul>
+</li>
+<li><code>com.planetory.io.exception.handler.ResponseErrorException</code> 클래스의 <code>of</code> 메서드를 이용하여 <code>StatusCodeConstant</code> 에러를 발생시킨다. </li>
+</ul>
+<pre><code class="language-java">throw ResponseErrorException.of(FrErrorCode.FR_SOLVE_NOT_ISSUE_TYPE);
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../dto/" class="btn btn-neutral float-left" title="DTO"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../test/" class="btn btn-neutral float-right" title="테스트 코드">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../dto/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../test/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
